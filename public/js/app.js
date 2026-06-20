@@ -1,3 +1,9 @@
+console.log("Capacitor:", window.Capacitor)
+
+if (window.Capacitor) {
+    alert("Capacitor APK terdeteksi")
+}
+
 const start = document.getElementById("start")
 const welcome = document.getElementById("welcome")
 const home = document.getElementById("home")
@@ -1328,7 +1334,7 @@ currentList.findIndex(
 s => s.url == song.url
 )
 
-alert("URL: " + song.url)
+//alert("URL: " + song.url)
 
 audio.src = song.url
 currentSongUrl = song.url
