@@ -1328,11 +1328,14 @@ currentList.findIndex(
 s => s.url == song.url
 )
 
+alert("URL: " + song.url)
+
 audio.src = song.url
 currentSongUrl = song.url
-//renderSongs(currentList)
 
-audio.play()
+audio.play().catch(err => {
+    alert("PLAY ERROR: " + err)
+})
 
 playing = true
 
