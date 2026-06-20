@@ -559,7 +559,7 @@ app.use(
 )
 
 function getHost(req) {
-    return `${req.protocol}://${req.get("host")}`
+    return `https://${req.get("host")}`
 }
 
 app.get("/api/songs", async (req, res) => {
