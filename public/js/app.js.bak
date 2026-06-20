@@ -1,0 +1,682 @@
+const start = document.getElementById("start")
+const welcome = document.getElementById("welcome")
+const home = document.getElementById("home")
+const bar = document.getElementById("bar")
+
+const list = document.getElementById("music-list")
+const play = document.getElementById("play")
+const prev = document.getElementById("prev")
+const next = document.getElementById("next")
+const progress = document.getElementById("progress")
+const nowTitle = document.getElementById("nowTitle")
+const menuFavorite = document.getElementById("menuFavorite")
+const search = document.getElementById("search")
+
+let audio = new Audio()
+let playing = false
+let allSongs = []
+let currentIndex = -1
+
+let favorites =
+JSON.parse(
+localStorage.getItem(
+"favorites"
+)
+) || []
+
+let downloads =
+JSON.parse(
+localStorage.getItem(
+"downloads"
+)
+) || []
+
+// Splash Screen
+
+let persen = 0
+
+const animasi = setInterval(() => {
+
+    persen++
+
+    bar.style.width = persen + "%"
+
+    if (persen >= 100) {
+
+        clearInterval(animasi)
+
+        document.getElementById(
+            "loadingText"
+        ).innerHTML =
+            "Siap digunakan"
+
+        start.style.display = "block"
+
+    }
+
+}, 30)
+
+start.onclick = () => {
+
+    welcome.classList.add(
+        "hide-welcome"
+    )
+
+    setTimeout(() => {
+
+        welcome.style.display =
+            "none"
+
+        home.classList.add(
+            "show-home"
+        )
+
+        document.getElementById(
+        "settingBtn"
+        ).style.display = "block"
+
+        document
+            .querySelector(".player")
+            .classList.add(
+                "player-show"
+            )
+
+    }, 800)
+
+}
+
+// Load Lagu
+
+async function loadSongs() {
+
+    const response =
+        await fetch("/api/songs")
+
+    allSongs =
+        await response.json()
+
+    renderSongs(allSongs)
+
+}
+
+function renderSongs(data) {
+
+    list.innerHTML = ""
+
+    data.forEach((song,index)=>{
+
+        list.innerHTML += `
+
+<div class="music-card"
+style="animation-delay:${index * 0.15}s"
+onclick="playSong(
+'${song.url}',
+'${song.title}'
+)">
+
+<div class="cover">
+  <img src="${song.cover || '/default.png'}"
+       onerror="this.src='/default.png'">
+</div>
+
+<div class="info">
+
+<div class="song">
+${song.title}
+</div>
+
+<div class="artist">
+${song.artist}
+</div>
+
+</div>
+
+<button
+class="fav"
+onclick="
+event.stopPropagation();
+toggleFavorite(
+'${song.url}'
+)
+">
+
+${
+favorites.includes(
+song.url
+)
+?
+"★"
+:
+"☆"
+}
+
+</button>
+
+<button
+class="download"
+onclick="
+event.stopPropagation();
+toggleDownload(
+'${song.url}'
+)
+">
+
+${
+downloads.includes(
+song.url
+)
+?
+"✔"
+:
+"⬇"
+}
+
+</button>
+
+</div>
+
+</div>
+
+`
+
+    })
+
+}
+
+function toggleFavorite(
+url
+){
+
+if(
+favorites.includes(
+url
+)
+){
+
+favorites =
+favorites.filter(
+item =>
+item != url
+)
+
+}else{
+
+favorites.push(
+url
+)
+
+}
+
+localStorage.setItem(
+
+"favorites",
+
+JSON.stringify(
+favorites
+)
+
+)
+
+renderSongs(
+allSongs
+)
+
+}
+
+function toggleDownload(url){
+
+if(
+downloads.includes(url)
+){
+
+downloads =
+downloads.filter(
+x => x != url
+)
+
+alert(
+"Lagu dihapus dari Download"
+)
+
+}else{
+
+downloads.push(url)
+
+alert(
+"Lagu ditambahkan ke Download"
+)
+
+}
+
+localStorage.setItem(
+"downloads",
+JSON.stringify(
+downloads
+)
+
+)
+
+renderSongs(
+allSongs
+)
+
+}
+
+// Search
+
+search.oninput = () => {
+
+    const q =
+        search.value.toLowerCase()
+
+    renderSongs(
+
+        allSongs.filter(
+            song =>
+                song.title
+                .toLowerCase()
+                .includes(q)
+        )
+
+    )
+
+}
+
+menuFavorite.onclick=()=>{
+
+const data =
+allSongs.filter(
+song =>
+favorites.includes(
+song.url
+)
+)
+
+renderSongs(
+data
+)
+
+}
+
+const menuAll =
+document.getElementById(
+"menuAll"
+)
+
+menuAll.onclick=()=>{
+
+renderSongs(
+allSongs
+)
+
+}
+
+const menuDownload =
+document.getElementById(
+"menuDownload"
+)
+
+menuDownload.onclick=()=>{
+
+renderSongs(
+
+allSongs.filter(
+song =>
+downloads.includes(
+song.url
+)
+)
+
+)
+
+}
+
+// Player
+
+function playSong(
+url,
+title
+){
+
+currentIndex =
+allSongs.findIndex(
+song =>
+song.url == url
+)
+
+audio.src = url
+
+audio.play()
+
+playing = true
+
+play.innerHTML = "❚❚"
+
+nowTitle.innerHTML =
+title
+
+}
+
+play.onclick = () => {
+
+    if (audio.src == "")
+        return
+
+    if (playing) {
+
+        audio.pause()
+
+        playing = false
+
+        play.innerHTML = "▶"
+
+    } else {
+
+        audio.play()
+
+        playing = true
+
+        play.innerHTML = "❚❚"
+
+    }
+
+}
+
+audio.addEventListener(
+"timeupdate",
+()=>{
+
+if(audio.duration){
+
+progress.max =
+audio.duration
+
+progress.value =
+audio.currentTime
+
+}
+
+}
+)
+
+progress.addEventListener(
+"input",
+()=>{
+
+audio.currentTime =
+progress.value
+
+}
+)
+
+next.onclick = ()=>{
+
+if(
+currentIndex <
+allSongs.length-1
+){
+
+currentIndex++
+
+const song =
+allSongs[
+currentIndex
+]
+
+playSong(
+song.url,
+song.title
+)
+
+}
+
+}
+
+prev.onclick = ()=>{
+
+if(
+currentIndex > 0
+){
+
+currentIndex--
+
+const song =
+allSongs[
+currentIndex
+]
+
+playSong(
+song.url,
+song.title
+)
+
+}
+
+}
+
+audio.addEventListener(
+"ended",
+()=>{
+
+if(
+currentIndex <
+allSongs.length-1
+){
+
+currentIndex++
+
+const song =
+allSongs[
+currentIndex
+]
+
+playSong(
+song.url,
+song.title
+)
+
+}else{
+
+playing = false
+
+play.innerHTML =
+"▶"
+
+}
+
+}
+)
+
+const settingBtn =
+document.getElementById(
+"settingBtn"
+)
+
+const settingMenu =
+document.getElementById(
+"settingMenu"
+)
+
+const uploadMusic =
+document.getElementById(
+"uploadMusic"
+)
+
+const uploadFile =
+document.getElementById(
+"uploadFile"
+)
+
+settingBtn.onclick=()=>{
+
+if(
+settingMenu.style.display
+==
+"block"
+){
+
+settingMenu.style.display=
+"none"
+
+}else{
+
+settingMenu.style.display=
+"block"
+
+}
+
+}
+
+uploadMusic.onclick=()=>{
+
+uploadFile.click()
+
+}
+
+uploadFile.onchange=
+async()=>{
+
+const file =
+uploadFile.files[0]
+
+if(!file)
+return
+
+const form =
+new FormData()
+
+form.append(
+"music",
+file
+)
+
+await fetch(
+"/api/upload",
+{
+method:"POST",
+body:form
+}
+)
+
+alert(
+"Upload berhasil"
+)
+
+uploadFile.value=""
+
+loadSongs()
+
+}
+
+const player =
+document.querySelector(
+".player"
+)
+
+let aktif = false
+
+let startX = 0
+let startY = 0
+
+player.addEventListener(
+"touchstart",
+e=>{
+
+aktif = true
+
+startX =
+e.touches[0].clientX
+-
+player.getBoundingClientRect().left
+
+startY =
+e.touches[0].clientY
+-
+player.getBoundingClientRect().top
+
+}
+)
+
+document.addEventListener(
+"touchmove",
+e=>{
+
+if(!aktif)
+return
+
+player.style.left =
+(
+e.touches[0].clientX
+-
+startX
+)
++
+"px"
+
+player.style.top =
+(
+e.touches[0].clientY
+-
+startY
+)
++
+"px"
+
+player.style.bottom =
+"auto"
+
+},
+{
+passive:true
+}
+)
+
+document.addEventListener(
+"touchend",
+()=>{
+
+aktif = false
+
+}
+)
+
+const togglePlayer =
+document.getElementById(
+"togglePlayer"
+)
+
+togglePlayer.onclick=(e)=>{
+
+e.stopPropagation()
+
+player.classList.add(
+"player-mini"
+)
+
+}
+
+player.onclick=(e)=>{
+
+if(
+
+player.classList.contains(
+"player-mini"
+)
+
+){
+
+player.classList.remove(
+"player-mini"
+)
+
+}
+
+}
+
+/*alert("loadSongs jalan")*/
+
+player.classList.add(
+"player-mini"
+)
+
+loadSongs()

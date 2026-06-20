@@ -1,0 +1,9 @@
+{
+  "appId": "com.musicdy.app",
+  "appName": "Musicdy",
+  "webDir": "public",
+  "server": {
+    "url": "https://musicdy.208.biz.id",
+    "cleartext": false
+  }
+}

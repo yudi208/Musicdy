@@ -1,0 +1,60 @@
+{
+  "users": [
+    {
+      "id": 1781885703382,
+      "username": "Musicdy",
+      "password": "$2b$10$qu9yrL6tbIoLU8yeoBNnXOapPASrytiFp6OjB3AiAWrErY1YrEFkS",
+      "favorites": [
+        "http://musicdy.208.biz.id/songs/Jakarta_Hari_Ini_spotdown.org.mp3"
+      ],
+      "favoritPlaylists": [],
+      "downloadPlaylists": [],
+      "playlists": [
+        {
+          "id": 1781886880163,
+          "name": "test",
+          "songs": [
+            "http://musicdy.208.biz.id/songs/Jakarta_Hari_Ini_spotdown.org.mp3"
+          ]
+        }
+      ],
+      "favoritePlaylists": [
+        1781886880163
+      ]
+    },
+    {
+      "id": 1781885804458,
+      "username": "CANTIYA",
+      "password": "$2b$10$1E2oapoKAlUztmAZW9FNL.eXpa5fDiWO5X8UkceD7e9aZGlU1yQuu",
+      "favorites": [],
+      "favoritPlaylists": [],
+      "downloadPlaylists": [],
+      "playlists": []
+    },
+    {
+      "id": 1781885917523,
+      "username": "cacaw",
+      "password": "$2b$10$bueePsqa//HYlILAGiv.l.s51hy0LmxDI0W9opKFnLi1oH1BlzZEG",
+      "favorites": [
+        "http://musicdy.208.biz.id/songs/Cup_of_Joe_-_Multo.mp3"
+      ],
+      "favoritPlaylists": [],
+      "downloadPlaylists": [],
+      "playlists": []
+    },
+    {
+      "id": 1781887144971,
+      "username": "C",
+      "password": "$2b$10$ijFEuCbCp4oeE269CRbSGeD0pIExlh5QIbIz5yM1Bf2ZbVDHOxQ5.",
+      "favorites": [
+        "http://musicdy.208.biz.id/songs/1781433399241-Nina.mp3"
+      ],
+      "favoritPlaylists": [],
+      "downloadPlaylists": [],
+      "playlists": [],
+      "favoritePlaylists": [
+        1781886880163
+      ]
+    }
+  ]
+}

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Musicdy</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#000000">
+
+<link rel="stylesheet" href="css/style.css?v=1.0.4">
+
+</head>
+
+<div id="playlistMenu" class="playlist-menu">
+
+<button id="newPlaylistBtn">
+Buat Playlist Baru
+</button>
+
+<button id="addToPlaylistBtn">
+Tambahkan ke Playlist
+</button>
+
+</div>
+
+<div
+id="songMenuPopup"
+class="song-menu-popup"
+>
+
+<div
+class="popup-content"
+>
+
+<div
+id="popupFavorite"
+class="popup-item"
+>
+
+Favorit
+
+</div>
+
+<div
+id="popupDownload"
+class="popup-item"
+>
+
+Download
+
+</div>
+
+<div
+id="popupPlaylist"
+class="popup-item"
+>
+
+Playlist
+
+</div>
+
+<div
+class="popup-item"
+onclick="closeSongMenu()"
+>
+
+Tutup
+
+</div>
+
+</div>
+
+</div>
+
+<body>
+
+<div
+id="playlistMenuPopup"
+class="song-menu-popup"
+style="display:none"
+>
+<div class="popup-content">
+
+<div
+id="playlistFavBtn"
+class="popup-item"
+onclick="
+togglePlaylistFavorite(
+selectedPlaylistId
+)
+"
+>
+Tambah Favorit
+</div>
+
+<div
+id="playlistDownloadBtn"
+class="popup-item"
+onclick="
+togglePlaylistDownload(
+selectedPlaylistId
+)
+"
+>
+Download Playlist
+</div>
+
+<div
+class="popup-item"
+onclick="
+deletePlaylist(
+selectedPlaylistId
+)
+"
+>
+Hapus Playlist Public
+</div>
+
+<div
+class="popup-item"
+onclick="closePlaylistMenu()"
+>
+Tutup Menu
+</div>
+
+</div>
+</div>
+
+<div id="authScreen">
+
+<div class="authBox">
+
+<h2>Musicdy</h2>
+
+<input
+type="text"
+id="username"
+placeholder="Username">
+
+<input
+type="password"
+id="password"
+placeholder="Password">
+
+<button id="loginBtn">
+Login
+</button>
+
+<button id="registerBtn">
+Register
+</button>
+
+<div id="authMsg"></div>
+
+</div>
+
+</div>
+
+<div class="overlay"></div>
+
+<button id="settingBtn">
+ ⚙️ 
+</button>
+
+<div id="settingMenu">
+
+<div class="settingItem">
+Profile
+</div>
+
+<div
+class="settingItem"
+id="uploadMusic"
+>
+Upload Musik
+</div>
+
+<div class="settingItem">
+Premium
+</div>
+
+<div class="settingItem">
+Favorit
+</div>
+
+<div
+class="setting-item"
+id="logoutBtn">
+
+Logout
+
+</div>
+
+<div class="settingItem">
+Tentang
+</div>
+
+<input
+type="file"
+id="uploadFile"
+accept=".mp3"
+style="display:none;">
+<p id="uploadProgress"></p>
+
+</div>
+
+<!-- SPLASH -->
+
+<div id="welcome">
+
+    <div class="welcome-box">
+
+        <div class="logo">
+            MSD
+        </div>
+
+        <div id="loadingText">
+            ...
+        </div>
+
+        <div class="loading">
+            <div id="bar"></div>
+        </div>
+
+        <button id="start">
+            Masuk
+        </button>
+
+    </div>
+
+<video
+id="loadingVideo"
+autoplay
+muted
+loop
+playsinline>
+
+<source src="bg.mp4" type="video/mp4">
+
+</video>
+
+</div>
+
+<!-- HOME -->
+
+<div id="home">
+
+    <div class="container">
+
+      <div class="header">
+
+        <div class="title">
+            Musicdy
+        </div>
+
+        <div class="menu">
+
+            <div
+class="menu-card"
+id="menuAll">
+
+Semua
+
+</div>
+
+            <div
+class="menu-card"
+id="menuFavorite">
+
+Favorit
+
+</div>
+
+            <div
+class="menu-card"
+id="menuDownload">
+
+Download
+
+</div>
+
+        </div>
+
+        <div class="search">
+
+            <input
+            id="search"
+            placeholder="Cari lagu...">
+
+        </div>
+
+        </div>
+
+        <div id="music-list">
+
+        </div>
+
+    </div>
+
+<!-- PLAYER -->
+<div class="player">
+
+    <div class="now">
+
+        <div class="cover-wrap">
+
+    <img
+    id="playerCover"
+    src="/default.png">
+
+</div>
+
+        <div class="player-info" id="openFullPlayer"> 
+
+            <div id="nowTitle">
+                Tidak ada lagu diputar
+            </div>
+
+            <div id="nowArtist">
+                Unknown Artist
+            </div>
+
+        </div>
+<input
+type="range"
+id="progress">
+
+    <div class="controls">
+
+    <button id="addBtn">
+        +
+    </button>
+
+    <button id="play">
+        ▶
+    </button>
+
+    <button id="playMode">
+        🔁
+    </button>
+
+</div>
+
+</div>
+
+</div> <!--tutup player-->
+
+<div id="fullPlayer">
+
+<div class="full-header">
+
+<button id="closePlayer">
+Close
+</button>
+
+</div>
+
+<div id="lyrics">
+
+Lyrics akan muncul disini
+
+</div>
+
+<h2 id="fullTitle">
+Tidak ada lagu
+</h2>
+
+<p id="fullArtist">
+Unknown Artist
+</p>
+
+<input
+type="range"
+id="fullProgress">
+
+<div class="full-time">
+
+<span id="currentTime">
+0:00
+</span>
+
+<span id="duration">
+0:00
+</span>
+
+</div>
+
+<div class="full-controls">
+
+<button id="shuffleBtn">
+🔀
+</button>
+
+<button id="prevFull">
+⏮
+</button>
+
+<button id="playFull">
+⏯
+</button>
+
+<button id="nextFull">
+⏭
+</button>
+
+<button id="repeatBtn">
+🔁
+</button>
+
+</div>
+
+</div> <!-- tutup fullPlayer di SINI -->
+
+<script src="js/app.js?v=1.0.4"></script>
+
+</body>
+
+</html>
