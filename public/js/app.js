@@ -1,3 +1,9 @@
+console.log("Capacitor =", window.Capacitor)
+
+setTimeout(() => {
+    console.log("Plugins =", window.Capacitor?.Plugins)
+}, 2000)
+
 console.log("Capacitor:", window.Capacitor)
 
 if (window.Capacitor) {
@@ -58,6 +64,7 @@ document
 
 let selectedPlaylistId = null
 let selectedSongUrl = null
+let selectedSong = null
 let audio = new Audio()
 let playing = false
 let allSongs = []
@@ -1005,6 +1012,13 @@ downloads
 function showSongMenu(url){
 
 selectedSongUrl = url
+
+selectedSong =
+allSongs.find(
+song => song.url === url
+)
+
+console.log(selectedSong)
 
 document
 .getElementById(
