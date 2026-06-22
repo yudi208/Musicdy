@@ -84,7 +84,7 @@ left:0;
 right:0;
 bottom:0;
 
-background:rgba(0,30,60,.6);
+background:#121212;
 
 z-index:0;
 
@@ -119,7 +119,7 @@ left:0;
 width:100%;
 height:100%;
 
-background:url("/bgh.jpg") center center no-repeat;
+background:#121212;
 backdrop-filter:blur(30px);
 
 background-size:cover;
@@ -1439,4 +1439,22 @@ text-align:center;
 
 font-size:14px;
 
+}
+
+body,
+html{
+    background:#121212 !important;
+}
+
+.player-page,
+.home-page,
+.main-content,
+.content{
+    background:#121212 !important;
+}
+
+header,
+.navbar,
+.bottom-nav{
+    background:#181818 !important;
 }

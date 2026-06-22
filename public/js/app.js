@@ -1192,17 +1192,17 @@ search.oninput = () => {
 
 menuFavorite.onclick=()=>{
 
-currentPage = "favorites"
+    currentPage = "favorites"
 
-const data =
-allSongs.filter(
-song =>
-favorites.includes(
-song.url
-)
-)
+    const data =
+    allSongs.filter(
+    song =>
+    favorites.includes(
+    song.url
+    )
+    )
 
-renderSongs(data)
+    renderSongs(data)
 
 }
 
@@ -1221,14 +1221,12 @@ shuffleArray(allSongs)
 loadedSongs =
 SONGS_PER_LOAD
 
-renderSongs(
-
-shuffledSongs.slice(
-0,
-loadedSongs
-)
-
-)
+    renderSongs(
+        shuffledSongs.slice(
+            0,
+            loadedSongs
+        )
+    )
 
 }
 
@@ -1323,6 +1321,19 @@ onerror="this.src='/default.png'">
 <p>${song.artist}</p>
 </div>
 
+<button
+class="song-menu"
+onclick="
+event.stopPropagation();
+showSongMenu(
+'${song.url}'
+)
+">
+
+⋮
+
+</button>
+
 </div>
 
 `
@@ -1399,6 +1410,29 @@ song.artist ||
 function playSongByIndex(index){
 
 currentIndex = index
+
+document
+.querySelectorAll(".song")
+.forEach(el=>{
+
+el.classList.remove(
+"playing-song"
+)
+
+})
+
+const active =
+document.querySelector(
+`#song-${index} .song`
+)
+
+if(active){
+
+active.classList.add(
+"playing-song"
+)
+
+}
 
 playSong(currentList[index])
 
