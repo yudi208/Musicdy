@@ -2440,9 +2440,11 @@ async function downloadSongFile(url){
             })
 
             alert(
-                "Download selesai:\n" +
-                filename
-            )
+    "Download selesai:\n" +
+    filename
+)
+
+cekFileDownload()
 
         }
 
@@ -2451,6 +2453,36 @@ async function downloadSongFile(url){
         alert(
             "Download gagal:\n" +
             err
+        )
+
+    }
+
+}
+
+async function cekFileDownload(){
+
+    try{
+
+        const files =
+        await Filesystem.readdir({
+
+            path: "",
+            directory: "DATA"
+
+        })
+
+        alert(
+            JSON.stringify(
+                files.files,
+                null,
+                2
+            )
+        )
+
+    }catch(err){
+
+        alert(
+            "ERROR:\n" + err
         )
 
     }
