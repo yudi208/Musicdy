@@ -1,5 +1,13 @@
 console.log("Capacitor =", window.Capacitor)
 
+const Filesystem =
+window.Capacitor?.Plugins?.Filesystem
+
+console.log(
+    "Filesystem =",
+    Filesystem
+)
+
 setTimeout(() => {
     console.log("Plugins =", window.Capacitor?.Plugins)
 }, 2000)
@@ -9,7 +17,9 @@ console.log("Capacitor:", window.Capacitor)
 if (window.Capacitor) {
     alert("Capacitor APK terdeteksi")
 }
-
+const playFull = document.getElementById("playFull")
+const nextFull = document.getElementById("nextFull")
+const prevFull = document.getElementById("prevFull")
 const start = document.getElementById("start")
 const welcome = document.getElementById("welcome")
 const home = document.getElementById("home")
@@ -31,6 +41,14 @@ ringProgress.style.strokeDashoffset = circumference*/
 const nowTitle = document.getElementById("nowTitle")
 const menuFavorite = document.getElementById("menuFavorite")
 const search = document.getElementById("search")
+const fullProgress =
+document.getElementById("fullProgress")
+
+const currentTimeText =
+document.getElementById("currentTime")
+
+const durationText =
+document.getElementById("duration")
 
 document.getElementById(
 "openFullPlayer"
@@ -62,11 +80,40 @@ document
 
 }
 
+playFull.onclick = () => {
+    play.click()
+}
+
+nextFull.onclick = () => {
+
+    currentIndex++
+
+    if(currentIndex >= currentList.length){
+        currentIndex = 0
+    }
+
+    playSongByIndex(currentIndex)
+
+}
+
+prevFull.onclick = () => {
+
+    currentIndex--
+
+    if(currentIndex < 0){
+        currentIndex = currentList.length - 1
+    }
+
+    playSongByIndex(currentIndex)
+
+}
+
 let selectedPlaylistId = null
 let selectedSongUrl = null
 let selectedSong = null
 let audio = new Audio()
 let playing = false
+let playMode = "repeat-all"
 let allSongs = []
 let shuffledSongs = []
 let loadedSongs = 0
@@ -103,6 +150,72 @@ msg +
 "\nLINE: " +
 line
 )
+
+}
+
+const zoomBtn =
+document.getElementById(
+    "zoomBtn"
+)
+
+const zoomPanel =
+document.getElementById(
+    "zoomPanel"
+)
+
+const zoomSlider =
+document.getElementById(
+    "zoomSlider"
+)
+
+const zoomValue =
+document.getElementById(
+    "zoomValue"
+)
+
+let uiScale =
+parseFloat(
+localStorage.getItem(
+    "uiScale"
+)
+) || 1
+
+document.body.style.zoom =
+uiScale
+
+zoomSlider.value =
+uiScale * 100
+
+zoomValue.innerHTML =
+Math.round(
+uiScale * 100
+) + "%"
+
+zoomBtn.onclick = ()=>{
+
+    zoomPanel.style.display =
+    zoomPanel.style.display ==
+    "block"
+    ? "none"
+    : "block"
+
+}
+
+zoomSlider.oninput = ()=>{
+
+    uiScale =
+    zoomSlider.value / 100
+
+    document.body.style.zoom =
+    uiScale
+
+    zoomValue.innerHTML =
+    zoomSlider.value + "%"
+
+    localStorage.setItem(
+        "uiScale",
+        uiScale
+    )
 
 }
 
@@ -157,6 +270,52 @@ start.onclick = () => {
             )
 
     }, 800)
+
+}
+
+function updatePlayModeUI(){
+
+    let icon = "↻"
+
+    if(playMode === "shuffle"){
+        icon = "⇄"
+    }
+
+    if(playMode === "repeat-one"){
+        icon = "↻¹"
+    }
+
+    document.getElementById(
+        "playMode"
+    ).innerHTML = icon
+
+    document.getElementById(
+        "playModeFull"
+    ).innerHTML = icon
+
+}
+
+function changePlayMode(){
+
+    if(playMode === "repeat-all"){
+
+        playMode = "shuffle"
+
+    }
+
+    else if(playMode === "shuffle"){
+
+        playMode = "repeat-one"
+
+    }
+
+    else{
+
+        playMode = "repeat-all"
+
+    }
+
+    updatePlayModeUI()
 
 }
 
@@ -1265,6 +1424,28 @@ Lagu Download
 
 }
 
+function formatTime(seconds){
+
+    const min =
+    Math.floor(seconds / 60)
+
+    const sec =
+    Math.floor(seconds % 60)
+
+    return min + ":" +
+    String(sec).padStart(2,"0")
+
+}
+
+fullProgress.addEventListener(
+"input",
+()=>{
+
+    audio.currentTime =
+    fullProgress.value
+
+})
+
 function showDownloadedSongs(){
 
 currentPage = "downloadSongs"
@@ -1359,29 +1540,95 @@ currentList.findIndex(
 s => s.url == song.url
 )
 
+fullProgress.value = 0
+
+currentTimeText.textContent =
+"0:00"
+
+durationText.textContent =
+"0:00"
+
 //alert("URL: " + song.url)
+//console.log("SONG =", song)
+//console.log("URL =", song.url)
 
 audio.src = song.url
 currentSongUrl = song.url
-
 audio.play().catch(err => {
-    alert("PLAY ERROR: " + err)
+//    alert("PLAY ERROR: " + err)
 })
+
+if ("mediaSession" in navigator) {
+
+    navigator.mediaSession.metadata =
+        new MediaMetadata({
+            title: song.title,
+            artist: song.artist || "Unknown Artist",
+            artwork: [{
+                src: song.cover || "/icon/logo.png",
+                sizes: "512x512",
+                type: "image/png"
+            }]
+        });
+
+    navigator.mediaSession.setActionHandler(
+        "play",
+        () => audio.play()
+    );
+
+    navigator.mediaSession.setActionHandler(
+        "pause",
+        () => audio.pause()
+    );
+
+    navigator.mediaSession.setActionHandler(
+        "nexttrack",
+        () => {
+            playSongByIndex(
+                currentIndex >= currentList.length - 1
+                ? 0
+                : currentIndex + 1
+            );
+        }
+    );
+
+    navigator.mediaSession.setActionHandler(
+        "previoustrack",
+        () => {
+            playSongByIndex(
+                currentIndex <= 0
+                ? currentList.length - 1
+                : currentIndex - 1
+            );
+        }
+    );
+}
 
 playing = true
 
 document.getElementById("playerCover")
 .classList.add("playing")
 
-play.innerHTML = "II"
+play.innerHTML = "❚❚"
+playFull.innerHTML = "❚❚"
 
 nowTitle.innerHTML =
 song.title
 
-document.getElementById(
-"fullPlayer"
-).style.backgroundImage =
-`url('${song.cover}')`
+const fullPlayer =
+document.getElementById("fullPlayer")
+
+if(song.cover){
+
+    fullPlayer.style.backgroundImage =
+    `url('${song.cover}')`
+
+}else{
+
+    fullPlayer.style.backgroundImage =
+    "url('/default.png')"
+
+}
 
 document.getElementById(
 "fullTitle"
@@ -1452,6 +1699,7 @@ play.onclick = () => {
         playing = false
 
         play.innerHTML = "▶"
+        playFull.innerHTML = "▶"
 
 document.getElementById("playerCover")
 .classList.remove("playing")
@@ -1463,6 +1711,7 @@ document.getElementById("playerCover")
         playing = true
 
         play.innerHTML = "❚❚"
+        playFull.innerHTML = "❚❚"
 
 document.getElementById("playerCover")
 .classList.add("playing")
@@ -1474,6 +1723,26 @@ document.getElementById("playerCover")
 audio.addEventListener(
 "timeupdate",
 ()=>{
+
+audio.addEventListener("timeupdate", () => {
+
+    if (!isNaN(audio.duration)) {
+
+        fullProgress.max =
+        audio.duration
+
+        fullProgress.value =
+        audio.currentTime
+
+        currentTimeText.textContent =
+        formatTime(audio.currentTime)
+
+        durationText.textContent =
+        formatTime(audio.duration)
+
+    }
+
+})
 
 if(audio.duration){
 
@@ -1551,26 +1820,52 @@ audio.addEventListener(
 "ended",
 ()=>{
 
-document.getElementById("playerCover")
-.classList.remove("playing")
+    if(
+        playMode ===
+        "repeat-one"
+    ){
 
-currentIndex++
+        playSongByIndex(
+            currentIndex
+        )
 
-if(
-currentIndex >=
-currentList.length
-){
+        return
 
-currentIndex = 0
+    }
 
-}
+    if(
+        playMode ===
+        "shuffle"
+    ){
 
-const song =
-currentList[
-currentIndex
-]
+        const randomIndex =
+        Math.floor(
+            Math.random() *
+            currentList.length
+        )
 
-playSong(song)
+        playSongByIndex(
+            randomIndex
+        )
+
+        return
+
+    }
+
+    currentIndex++
+
+    if(
+        currentIndex >=
+        currentList.length
+    ){
+
+        currentIndex = 0
+
+    }
+
+    playSongByIndex(
+        currentIndex
+    )
 
 }
 )
@@ -2043,6 +2338,18 @@ loadMoreSongs()
 
 }
 )
+
+document.getElementById(
+    "playMode"
+).onclick =
+changePlayMode
+
+document.getElementById(
+    "playModeFull"
+).onclick =
+changePlayMode
+
+updatePlayModeUI()
 
 document
 .getElementById(
