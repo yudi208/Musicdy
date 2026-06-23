@@ -1,4 +1,4 @@
-console.log("Capacitor =", window.Capacitor)
+//console.log("Capacitor =", window.Capacitor)
 
 const Filesystem =
 window.Capacitor?.Plugins?.Filesystem
@@ -12,7 +12,7 @@ setTimeout(() => {
     console.log("Plugins =", window.Capacitor?.Plugins)
 }, 2000)
 
-console.log("Capacitor:", window.Capacitor)
+/*console.log("Capacitor:", window.Capacitor)
 
 if (window.Capacitor) {
 
@@ -27,7 +27,7 @@ if (window.Capacitor) {
         )
     )
 
-}
+}*/
 const playFull = document.getElementById("playFull")
 const nextFull = document.getElementById("nextFull")
 const prevFull = document.getElementById("prevFull")
@@ -1624,7 +1624,14 @@ audio.src = source
 currentSongUrl = source
 
 audio.play().catch(err => {
-//    alert("PLAY ERROR: " + err)
+
+    alert(
+        "PLAY ERROR:\n" +
+        err
+    )
+
+    console.log(err)
+
 })
 
 if ("mediaSession" in navigator) {
