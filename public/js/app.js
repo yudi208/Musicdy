@@ -1544,8 +1544,42 @@ SONGS_PER_LOAD
 
 }
 
+async function getLocalFile(url){
+
+    try{
+
+        const filename =
+        url.split("/").pop()
+
+        const files =
+        await Filesystem.readdir({
+            path:"",
+            directory:"DATA"
+        })
+
+        const found =
+        files.files.find(
+            f => f.name === filename
+        )
+
+        if(found){
+
+            return found.uri
+
+        }
+
+    }catch(err){
+
+        console.log(err)
+
+    }
+
+    return null
+
+}
+
 // Player
-function playSong(song){
+async function playSong(song){
 
 currentSong = song
 currentIndex =
@@ -1565,8 +1599,25 @@ durationText.textContent =
 //console.log("SONG =", song)
 //console.log("URL =", song.url)
 
-audio.src = song.url
-currentSongUrl = song.url
+let source = song.url
+
+const offlineFile =
+await getLocalFile(song.url)
+
+console.log(
+"Offline file:",
+offlineFile
+)
+
+if(offlineFile){
+
+    source = offlineFile
+
+}
+
+audio.src = source
+currentSongUrl = source
+
 audio.play().catch(err => {
 //    alert("PLAY ERROR: " + err)
 })
