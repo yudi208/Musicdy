@@ -12,7 +12,7 @@ setTimeout(() => {
     console.log("Plugins =", window.Capacitor?.Plugins)
 }, 2000)
 
-/*console.log("Capacitor:", window.Capacitor)
+console.log("Capacitor:", window.Capacitor)
 
 if (window.Capacitor) {
 
@@ -27,7 +27,7 @@ if (window.Capacitor) {
         )
     )
 
-}*/
+}
 const playFull = document.getElementById("playFull")
 const nextFull = document.getElementById("nextFull")
 const prevFull = document.getElementById("prevFull")
@@ -1611,13 +1611,21 @@ alert(
 
 if(offlineFile){
 
-source = Capacitor.convertFileSrc(
-    offlineFile
-)
+    source =
+    window.Capacitor.convertFileSrc(
+        offlineFile
+    )
+
+}
 
 audio.src = source
 currentSongUrl = source
-alert(source)
+
+alert(
+    "SOURCE:\n" +
+    source
+)
+
 audio.play().catch(err => {
 
     alert(
