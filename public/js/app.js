@@ -15,7 +15,18 @@ setTimeout(() => {
 console.log("Capacitor:", window.Capacitor)
 
 if (window.Capacitor) {
+
     alert("Capacitor APK terdeteksi")
+
+    alert(
+        "Filesystem: " +
+        (
+            window.Capacitor?.Plugins?.Filesystem
+            ? "ADA"
+            : "TIDAK ADA"
+        )
+    )
+
 }
 const playFull = document.getElementById("playFull")
 const nextFull = document.getElementById("nextFull")
