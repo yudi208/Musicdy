@@ -11,7 +11,7 @@
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#000000">
 
-<link rel="stylesheet" href="css/style.css?v=1.0.4">
+<link rel="stylesheet" href="css/style.css?v=1.1.0">
 
 <script src="capacitor.js"></script>
 
@@ -79,6 +79,25 @@ Tutup
 </div>
 
 <body>
+
+<button id="zoomBtn">🔍</button>
+
+<div id="zoomPanel" style="display:none;">
+
+    <p>
+        Zoom:
+        <span id="zoomValue">100%</span>
+    </p>
+
+    <input
+        type="range"
+        id="zoomSlider"
+        min="50"
+        max="200"
+        value="100"
+        step="10">
+
+</div>
 
 <div
 id="playlistMenuPopup"
@@ -185,16 +204,9 @@ Upload Musik
 Premium
 </div>
 
-<div class="settingItem">
-Favorit
-</div>
-
-<div
-class="setting-item"
+<div class="settingItem"
 id="logoutBtn">
-
-Logout
-
+logout
 </div>
 
 <div class="settingItem">
@@ -329,9 +341,9 @@ id="progress">
         ▶
     </button>
 
-    <button id="playMode">
-        🔁
-    </button>
+    <span id="playMode">
+    🔁
+</span>
 
 </div>
 
@@ -381,10 +393,6 @@ id="fullProgress">
 
 <div class="full-controls">
 
-<button id="shuffleBtn">
-🔀
-</button>
-
 <button id="prevFull">
 ⏮
 </button>
@@ -397,15 +405,15 @@ id="fullProgress">
 ⏭
 </button>
 
-<button id="repeatBtn">
+<span id="playModeFull">
 🔁
-</button>
+</span>
 
 </div>
 
 </div> <!-- tutup fullPlayer di SINI -->
 
-<script src="js/app.js?v=1.0.4"></script>
+<script src="js/app.js?v=1.1.0"></script>
 
 </body>
 

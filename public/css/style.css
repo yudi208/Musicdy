@@ -140,6 +140,46 @@ overflow:hidden;
 
 }
 
+#zoomBtn{
+    position:fixed;
+    top:15px;
+    left:15px;
+    z-index:99999;
+
+    width:40px;
+    height:40px;
+
+    border:none;
+    border-radius:50%;
+
+    background:#222;
+    color:#fff;
+
+    font-size:18px;
+}
+
+#zoomPanel{
+    position:fixed;
+    top:65px;
+    left:15px;
+
+    width:220px;
+
+    padding:15px;
+
+    background:#1f1f1f;
+    color:white;
+
+    border-radius:12px;
+
+    z-index:99999;
+}
+
+#fullProgress{
+    width:100%;
+    accent-color:#555;
+}
+
 .show-home{
 
 display:block !important;
@@ -454,8 +494,6 @@ display:none;
 
 flex-direction:column;
 
-background:url("/bgh.jpg");
-
 z-index:9998;
 
 padding:20px;
@@ -481,7 +519,7 @@ bottom:0;
 
 background:inherit;
 
-filter:blur(25px);
+filter:blur(50px);
 
 transform:scale(1.1);
 
@@ -564,6 +602,26 @@ border:none;
 color:white;
 
 font-size:28px;
+
+}
+
+#playMode,
+#playModeFull{
+
+    color:#bdbdbd;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    user-select:none;
+
+}
+
+#playMode.active,
+#playModeFull.active{
+
+    color:#fff;
 
 }
 
@@ -660,7 +718,7 @@ height:4px;
 
 margin:8px 0 0 0;
 
-accent-color:#1ea7ff;
+accent-color:#555;
 
 background:transparent;
 }

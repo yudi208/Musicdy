@@ -1161,6 +1161,8 @@ alert(
 
 downloads.push(url)
 
+downloadSongFile(url)
+
 alert(
 "Lagu ditambahkan ke Download"
 )
@@ -2397,6 +2399,61 @@ document
 .onclick = ()=>{
 
 showPlaylistSelector()
+
+}
+
+async function downloadSongFile(url){
+
+    try{
+
+        const response =
+        await fetch(url)
+
+        const blob =
+        await response.blob()
+
+        const reader =
+        new FileReader()
+
+        reader.readAsDataURL(blob)
+
+        reader.onloadend =
+        async ()=>{
+
+            const base64 =
+            reader.result.split(",")[1]
+
+            const filename =
+            url.split("/").pop()
+
+            await Filesystem.writeFile({
+
+                path:
+                filename,
+
+                data:
+                base64,
+
+                directory:
+                "DATA"
+
+            })
+
+            alert(
+                "Download selesai:\n" +
+                filename
+            )
+
+        }
+
+    }catch(err){
+
+        alert(
+            "Download gagal:\n" +
+            err
+        )
+
+    }
 
 }
 
