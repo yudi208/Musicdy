@@ -1611,18 +1611,13 @@ alert(
 
 if(offlineFile){
 
-    source = offlineFile
-
-}
-
-alert(
-    "SOURCE:\n" +
-    source
+source = Capacitor.convertFileSrc(
+    offlineFile
 )
 
 audio.src = source
 currentSongUrl = source
-
+alert(source)
 audio.play().catch(err => {
 
     alert(
