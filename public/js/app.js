@@ -1604,9 +1604,9 @@ let source = song.url
 const offlineFile =
 await getLocalFile(song.url)
 
-console.log(
-"Offline file:",
-offlineFile
+alert(
+    "OFFLINE FILE:\n" +
+    offlineFile
 )
 
 if(offlineFile){
@@ -1614,6 +1614,11 @@ if(offlineFile){
     source = offlineFile
 
 }
+
+alert(
+    "SOURCE:\n" +
+    source
+)
 
 audio.src = source
 currentSongUrl = source
