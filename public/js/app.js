@@ -1,4 +1,4 @@
-alert("APP VERSION 2026-06-24-1")
+alert("APP VERSION 2026-06-24-2")
 
 window.onerror = function(msg, url, line, col, err){
 
@@ -26,7 +26,7 @@ setTimeout(() => {
 
 console.log("Capacitor:", window.Capacitor)
 
-/*
+
 if (window.Capacitor) {
 
     alert("Capacitor APK terdeteksi")
@@ -40,7 +40,7 @@ if (window.Capacitor) {
         )
     )
 
-}*/
+}
 const playFull = document.getElementById("playFull")
 const nextFull = document.getElementById("nextFull")
 const prevFull = document.getElementById("prevFull")
@@ -2263,6 +2263,8 @@ document.getElementById(
 registerBtn.onclick =
 async ()=>{
 
+alert("REGISTER DIKLIK")
+
 const username =
 document.getElementById(
 "username"
@@ -2301,6 +2303,8 @@ data.message
 
 loginBtn.onclick =
 async ()=>{
+
+alert("LOGIN DIKLIK")
 
 const username =
 document.getElementById(
