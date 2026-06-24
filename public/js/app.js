@@ -1,9 +1,17 @@
+window.onerror = function(msg, url, line, col, err){
+
+    alert(
+        "ERROR:\n\n" +
+        msg +
+        "\n\nLine: " + line
+    )
+
+}
 //console.log("Capacitor =", window.Capacitor)
 const API =
 "https://musicdy.208.biz.id"
 
-const Filesystem =
-window.Capacitor?.Plugins?.Filesystem
+const Filesystem = null
 
 console.log(
     "Filesystem =",
@@ -16,6 +24,7 @@ setTimeout(() => {
 
 console.log("Capacitor:", window.Capacitor)
 
+/*
 if (window.Capacitor) {
 
     alert("Capacitor APK terdeteksi")
@@ -29,7 +38,7 @@ if (window.Capacitor) {
         )
     )
 
-}
+}*/
 const playFull = document.getElementById("playFull")
 const nextFull = document.getElementById("nextFull")
 const prevFull = document.getElementById("prevFull")
@@ -410,7 +419,7 @@ async function loadAllPlaylists(){
 
 const res =
 await fetch(
-"${API}/api/all-playlists"
+`${API}/api/all-playlists`
 )
 
 allPlaylists =
@@ -527,7 +536,7 @@ localStorage.getItem(
 if(!user)return
 
 await fetch(
-"${API}/api/favorite-playlists",
+`${API}/api/favorite-playlists`,
 {
 method:"POST",
 headers:{
@@ -558,7 +567,7 @@ localStorage.getItem(
 if(!user)return
 
 await fetch(
-"${API}/api/download-playlists",
+`${API}/api/download-playlists`,
 {
 method:"POST",
 headers:{
@@ -703,7 +712,7 @@ return [...array].sort(
 async function loadSongs() {
 
     const response =
-        await fetch("${API}/api/songs")
+        await fetch(`${API}/api/songs`)
 
     allSongs =
         await response.json()
@@ -1120,7 +1129,7 @@ localStorage.getItem(
 if(user){
 
 fetch(
-"${API}/api/favorites",
+`${API}/api/favorites`,
 {
 method:"POST",
 
@@ -1300,7 +1309,7 @@ localStorage.getItem(
 
 const res =
 await fetch(
-"${API}/api/playlists",
+`${API}/api/playlists`,
 {
 method:"POST",
 headers:{
@@ -2012,7 +2021,7 @@ localStorage.getItem(
 )
 
 await fetch(
-"${API}/api/playlists",
+`${API}/api/playlists`,
 {
 method:"POST",
 headers:{
@@ -2206,7 +2215,7 @@ uploadProgress.innerText =
 
 xhr.open(
 "POST",
-"${API}/api/upload"
+`${API}/api/upload`
 )
 
 xhr.send(form)
@@ -2264,7 +2273,7 @@ document.getElementById(
 
 const res =
 await fetch(
-"${API}/api/register",
+`${API}/api/register`,
 {
 method:"POST",
 headers:{
@@ -2303,7 +2312,7 @@ document.getElementById(
 
 const res =
 await fetch(
-"${API}/api/login",
+`${API}/api/login`,
 {
 method:"POST",
 headers:{
