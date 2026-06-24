@@ -2320,6 +2320,10 @@ alert("2")
 
 alert("API = " + API)
 
+let data
+
+try{
+
 const res =
 await fetch(
 `${API}/api/login`,
@@ -2340,10 +2344,23 @@ password
 
 alert("3")
 
-const data =
+data =
 await res.json()
 
 alert("4")
+
+}catch(err){
+
+alert(
+"FETCH ERROR:\n" +
+err
+)
+
+console.log(err)
+
+return
+
+}
 
 if(data.success){
 
@@ -2355,6 +2372,7 @@ JSON.stringify(
 data.user
 )
 )
+
 await loadFavorites()
 await loadPlaylists()
 await loadAllPlaylists()
