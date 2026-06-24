@@ -1,3 +1,5 @@
+alert("APP VERSION 2026-06-24-1")
+
 window.onerror = function(msg, url, line, col, err){
 
     alert(
