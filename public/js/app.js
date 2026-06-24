@@ -2320,6 +2320,10 @@ alert("2")
 
 alert("API = " + API)
 
+fetch("https://musicdy.208.biz.id")
+.then(() => alert("DOMAIN OK"))
+.catch(err => alert("DOMAIN ERROR:\n" + err))
+
 let data
 
 try{
