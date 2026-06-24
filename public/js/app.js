@@ -1,4 +1,6 @@
 //console.log("Capacitor =", window.Capacitor)
+const API =
+"https://musicdy.208.biz.id"
 
 const Filesystem =
 window.Capacitor?.Plugins?.Filesystem
@@ -408,7 +410,7 @@ async function loadAllPlaylists(){
 
 const res =
 await fetch(
-"/api/all-playlists"
+"${API}/api/all-playlists"
 )
 
 allPlaylists =
@@ -430,7 +432,7 @@ if(!user)return
 
 const res =
 await fetch(
-`/api/playlists/${user.id}`
+`${API}/api/playlists/${user.id}`
 )
 
 playlists =
@@ -454,7 +456,7 @@ if(!user)return
 
 const res =
 await fetch(
-`/api/favorites/${user.id}`
+`${API}/api/favorites/${user.id}`
 )
 
 favorites =
@@ -484,7 +486,7 @@ if(!user)return
 
 const res =
 await fetch(
-`/api/favorite-playlists/${user.id}`
+`${API}/api/favorite-playlists/${user.id}`
 )
 
 favoritePlaylists =
@@ -505,7 +507,7 @@ if(!user)return
 
 const res =
 await fetch(
-`/api/download-playlists/${user.id}`
+`${API}/api/download-playlists/${user.id}`
 )
 
 downloadPlaylists =
@@ -525,7 +527,7 @@ localStorage.getItem(
 if(!user)return
 
 await fetch(
-"/api/favorite-playlists",
+"${API}/api/favorite-playlists",
 {
 method:"POST",
 headers:{
@@ -556,7 +558,7 @@ localStorage.getItem(
 if(!user)return
 
 await fetch(
-"/api/download-playlists",
+"${API}/api/download-playlists",
 {
 method:"POST",
 headers:{
@@ -701,7 +703,7 @@ return [...array].sort(
 async function loadSongs() {
 
     const response =
-        await fetch("/api/songs")
+        await fetch("${API}/api/songs")
 
     allSongs =
         await response.json()
@@ -1118,7 +1120,7 @@ localStorage.getItem(
 if(user){
 
 fetch(
-"/api/favorites",
+"${API}/api/favorites",
 {
 method:"POST",
 
@@ -1298,7 +1300,7 @@ localStorage.getItem(
 
 const res =
 await fetch(
-"/api/playlists",
+"${API}/api/playlists",
 {
 method:"POST",
 headers:{
@@ -2010,7 +2012,7 @@ localStorage.getItem(
 )
 
 await fetch(
-"/api/playlists",
+"${API}/api/playlists",
 {
 method:"POST",
 headers:{
@@ -2204,7 +2206,7 @@ uploadProgress.innerText =
 
 xhr.open(
 "POST",
-"/api/upload"
+"${API}/api/upload"
 )
 
 xhr.send(form)
@@ -2262,7 +2264,7 @@ document.getElementById(
 
 const res =
 await fetch(
-"/api/register",
+"${API}/api/register",
 {
 method:"POST",
 headers:{
@@ -2301,7 +2303,7 @@ document.getElementById(
 
 const res =
 await fetch(
-"/api/login",
+"${API}/api/login",
 {
 method:"POST",
 headers:{
