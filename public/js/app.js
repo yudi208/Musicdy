@@ -2316,6 +2316,8 @@ document.getElementById(
 "password"
 ).value
 
+alert("2")
+
 const res =
 await fetch(
 `${API}/api/login`,
@@ -2334,8 +2336,12 @@ password
 }
 )
 
+alert("3")
+
 const data =
 await res.json()
+
+alert("4")
 
 if(data.success){
 
