@@ -2328,6 +2328,10 @@ let data
 
 try{
 
+alert(
+`${API}/api/login`
+)
+
 const res =
 await fetch(
 `${API}/api/login`,
