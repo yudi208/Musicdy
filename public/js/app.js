@@ -2318,6 +2318,8 @@ document.getElementById(
 
 alert("2")
 
+alert("API = " + API)
+
 const res =
 await fetch(
 `${API}/api/login`,
