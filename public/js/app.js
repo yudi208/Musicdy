@@ -2362,7 +2362,7 @@ localStorage.setItem(
 JSON.stringify(
 data.user
 )
-)*/
+)
 
 await loadFavorites()
 await loadPlaylists()
@@ -2377,7 +2377,8 @@ authScreen.style.display =
 authMsg.innerText =
 data.message
 
-}
+}*/
+alert("SELESAI TES")
 
 }
 
