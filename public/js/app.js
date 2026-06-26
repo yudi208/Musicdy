@@ -2328,39 +2328,22 @@ let data
 
 try{
 
-alert(
-`${API}/api/login`
-)
+alert("TES SONGS")
 
 const res =
 await fetch(
-`${API}/api/login`,
-{
-method:"POST",
-headers:{
-"Content-Type":
-"application/json"
-},
-body:JSON.stringify({
-
-username,
-password
-
-})
-}
+`${API}/api/songs`
 )
 
-alert("3")
-
-data =
-await res.json()
-
-alert("4")
+alert(
+"STATUS: " +
+res.status
+)
 
 }catch(err){
 
 alert(
-"FETCH ERROR:\n" +
+"ERROR:\n" +
 err
 )
 
@@ -2370,7 +2353,7 @@ return
 
 }
 
-if(data.success){
+/*if(data.success){
 
 localStorage.setItem(
 
@@ -2379,7 +2362,7 @@ localStorage.setItem(
 JSON.stringify(
 data.user
 )
-)
+)*/
 
 await loadFavorites()
 await loadPlaylists()
