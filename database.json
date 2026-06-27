@@ -65,7 +65,16 @@
       ],
       "favoritPlaylists": [],
       "downloadPlaylists": [],
-      "playlists": [],
+      "playlists": [
+        {
+          "id": 1782547569611,
+          "name": "tes",
+          "songs": [
+            "https://musicdy.208.biz.id/songs/Akon%20-%20Lonely.mp3",
+            "https://musicdy.208.biz.id/songs/kids.mp3"
+          ]
+        }
+      ],
       "favoritePlaylists": [
         1781886880163
       ]

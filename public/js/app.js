@@ -615,14 +615,6 @@ of playlist.songs
     "/" +
     playlist.songs.length
 
-    ...
-}
-
-for(
-const url
-of playlist.songs
-){
-
     if(
     !downloads.includes(url)
     ){
@@ -1667,13 +1659,12 @@ if ("mediaSession" in navigator) {
 
     navigator.mediaSession.metadata =
         new MediaMetadata({
-alert(
-    "MEDIA SESSION:\n" +
-    song.title
-)
             title: song.title,
             artist: song.artist || "Unknown Artist",
-            artwork: []
+            artwork: [{
+    src: song.cover || "/icon/logo.png",
+    sizes: "512x512",
+    type: "image/png"
 
             }]
         });
