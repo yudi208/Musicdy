@@ -13,7 +13,17 @@ window.onerror = function(msg, url, line, col, err){
 const API =
 "https://musicdy.208.biz.id"
 
-const Filesystem = null
+const Filesystem =
+window.Capacitor?.Plugins?.Filesystem
+
+alert(
+"Filesystem = " +
+(
+Filesystem
+? "ADA"
+: "TIDAK ADA"
+)
+)
 
 console.log(
     "Filesystem =",
