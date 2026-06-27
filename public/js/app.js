@@ -407,13 +407,33 @@ document
 //loadplaylist
 async function loadAllPlaylists(){
 
-const res =
-await fetch(
-`${API}/api/all-playlists`
-)
+try{
 
-allPlaylists =
-await res.json()
+    const res =
+    await fetch(
+        `${API}/api/all-playlists`
+    )
+
+    allPlaylists =
+    await res.json()
+
+    localStorage.setItem(
+        "allPlaylists",
+        JSON.stringify(
+            allPlaylists
+        )
+    )
+
+}catch(err){
+
+    allPlaylists =
+    JSON.parse(
+        localStorage.getItem(
+            "allPlaylists"
+        )
+    ) || []
+
+}
 
 }
 
@@ -504,13 +524,33 @@ localStorage.getItem(
 
 if(!user)return
 
-const res =
-await fetch(
-`${API}/api/download-playlists/${user.id}`
-)
+try{
 
-downloadPlaylists =
-await res.json()
+    const res =
+    await fetch(
+        `${API}/api/download-playlists/${user.id}`
+    )
+
+    downloadPlaylists =
+    await res.json()
+
+    localStorage.setItem(
+        "downloadPlaylists",
+        JSON.stringify(
+            downloadPlaylists
+        )
+    )
+
+}catch(err){
+
+    downloadPlaylists =
+    JSON.parse(
+        localStorage.getItem(
+            "downloadPlaylists"
+        )
+    ) || []
+
+}
 
 }
 
