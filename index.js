@@ -13,6 +13,7 @@ const fs = require("fs")
 const cors = require("cors")
 
 const app = express()
+app.use(cors())
 app.use(express.json())
 
 const storage = multer.diskStorage({
@@ -539,8 +540,6 @@ success:true
 
 }
 )
-
-app.use(cors())
 
 app.use(express.static(path.join(__dirname, "public")))
 
