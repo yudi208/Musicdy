@@ -9,21 +9,11 @@ window.onerror = function(msg, url, line, col, err){
     )
 
 }
-//console.log("Capacitor =", window.Capacitor)
 const API =
 "https://musicdy.208.biz.id"
 
 const Filesystem =
 window.Capacitor?.Plugins?.Filesystem
-
-alert(
-"Filesystem = " +
-(
-Filesystem
-? "ADA"
-: "TIDAK ADA"
-)
-)
 
 console.log(
     "Filesystem =",
@@ -36,21 +26,6 @@ setTimeout(() => {
 
 console.log("Capacitor:", window.Capacitor)
 
-
-/*if (window.Capacitor) {
-
-    alert("Capacitor APK terdeteksi")
-
-    alert(
-        "Filesystem: " +
-        (
-            window.Capacitor?.Plugins?.Filesystem
-            ? "ADA"
-            : "TIDAK ADA"
-        )
-    )
-
-}*/
 const playFull = document.getElementById("playFull")
 const nextFull = document.getElementById("nextFull")
 const prevFull = document.getElementById("prevFull")
@@ -65,13 +40,9 @@ const closePlayer = document.getElementById("closePlayer")
 const prev = document.getElementById("prev")
 const next = document.getElementById("next")
 const progress = document.getElementById("progress")
-/*const ringProgress = document.querySelector(".ring-progress")
-console.log("Ring:", ringProgress)*/
 const radius = 46
 const circumference = 2 * Math.PI * radius
 const uploadProgress = document.getElementById("uploadProgress")
-/*ringProgress.style.strokeDasharray = circumference
-ringProgress.style.strokeDashoffset = circumference*/
 const nowTitle = document.getElementById("nowTitle")
 const menuFavorite = document.getElementById("menuFavorite")
 const search = document.getElementById("search")
@@ -173,6 +144,13 @@ let downloads =
 JSON.parse(
 localStorage.getItem(
 "downloads"
+)
+) || []
+
+let downloadedSongs =
+JSON.parse(
+localStorage.getItem(
+"downloadedSongs"
 )
 ) || []
 
@@ -1503,15 +1481,9 @@ function showDownloadedSongs(){
 
 currentPage = "downloadSongs"
 
-const songs =
-allSongs.filter(
-song =>
-downloads.includes(
-song.url
+renderSongs(
+    downloadedSongs
 )
-)
-
-renderSongs(songs)
 
 }
 
@@ -1644,10 +1616,10 @@ let source = song.url
 const offlineFile =
 await getLocalFile(song.url)
 
-alert(
+/*alert(
     "OFFLINE FILE:\n" +
     offlineFile
-)
+)*/
 
 if(offlineFile){
 
@@ -1661,10 +1633,10 @@ if(offlineFile){
 audio.src = source
 currentSongUrl = source
 
-alert(
+/*alert(
     "SOURCE:\n" +
     source
-)
+)*/
 
 audio.play().catch(err => {
 
@@ -2540,10 +2512,10 @@ async function downloadSongFile(url){
 
         const response =
         await fetch(url)
-alert("A")
+
         const blob =
         await response.blob()
-alert("B")
+
         const reader =
         new FileReader()
 
@@ -2551,7 +2523,6 @@ alert("B")
 
         reader.onloadend =
         async ()=>{
-alert("C")
             const base64 =
             reader.result.split(",")[1]
 
@@ -2559,16 +2530,6 @@ alert("C")
             url.split("/").pop()
 
 try{
-
-alert(
-    "BASE64 LENGTH = " +
-    base64.length
-)
-
-alert(
-    "FILE = " +
-    filename
-)
 
     await Filesystem.writeFile({
 
@@ -2583,7 +2544,6 @@ alert(
 
     })
 
-    alert("D")
 
 }catch(err){
 
@@ -2603,29 +2563,46 @@ alert(
 
 }
 
-            if(
-            !downloads.includes(url)
-            ){
+if(
+!downloads.includes(url)
+){
 
-                downloads.push(url)
+downloads.push(url)
 
-                localStorage.setItem(
-                "downloads",
-                JSON.stringify(
-                downloads
-                )
-                )
+localStorage.setItem(
+"downloads",
+JSON.stringify(
+downloads
+)
+)
 
-                if(
-                currentPage ===
-                "downloadSongs"
-                ){
+const song =
+allSongs.find(
+s => s.url === url
+)
 
-                    showDownloadedSongs()
+if(song){
 
-                }
+    downloadedSongs.push(song)
 
-            }
+    localStorage.setItem(
+        "downloadedSongs",
+        JSON.stringify(
+            downloadedSongs
+        )
+    )
+
+}
+
+if(
+currentPage ===
+"downloadSongs"
+){
+
+showDownloadedSongs()
+
+}
+}
 
             alert(
             "Download selesai:\n" +
