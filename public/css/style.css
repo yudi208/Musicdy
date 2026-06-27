@@ -140,6 +140,18 @@ overflow:hidden;
 
 }
 
+#downloadProgress{
+position:fixed;
+bottom:80px;
+left:10px;
+right:10px;
+background:#111;
+padding:10px;
+border-radius:10px;
+display:none;
+z-index:9999;
+}
+
 #zoomBtn{
     position:fixed;
     top:15px;

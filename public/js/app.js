@@ -1,4 +1,4 @@
-alert("APP VERSION 2026-06-24-2")
+//alert("APP VERSION 2026-06-24-2")
 
 window.onerror = function(msg, url, line, col, err){
 
@@ -27,7 +27,7 @@ setTimeout(() => {
 console.log("Capacitor:", window.Capacitor)
 
 
-if (window.Capacitor) {
+/*if (window.Capacitor) {
 
     alert("Capacitor APK terdeteksi")
 
@@ -40,7 +40,7 @@ if (window.Capacitor) {
         )
     )
 
-}
+}*/
 const playFull = document.getElementById("playFull")
 const nextFull = document.getElementById("nextFull")
 const prevFull = document.getElementById("prevFull")
@@ -713,11 +713,35 @@ return [...array].sort(
 // Load Lagu
 async function loadSongs() {
 
-    const response =
-        await fetch(`${API}/api/songs`)
+    try{
 
-    allSongs =
+        const response =
+        await fetch(
+            `${API}/api/songs`
+        )
+
+        allSongs =
         await response.json()
+
+        localStorage.setItem(
+            "allSongs",
+            JSON.stringify(allSongs)
+        )
+
+    }catch(err){
+
+        alert(
+            "Mode Offline"
+        )
+
+        allSongs =
+        JSON.parse(
+            localStorage.getItem(
+                "allSongs"
+            )
+        ) || []
+
+    }
 
     currentPage = "home"
 
@@ -729,15 +753,14 @@ async function loadSongs() {
 
     renderSongs(
 
-    shuffledSongs.slice(
-    0,
-    loadedSongs
-    )
+        shuffledSongs.slice(
+            0,
+            loadedSongs
+        )
 
     )
 
 }
-
 console.log(allPlaylists)
 function showPlaylists(){
 
@@ -1172,13 +1195,7 @@ alert(
 
 }else{
 
-downloads.push(url)
-
 downloadSongFile(url)
-
-alert(
-"Lagu ditambahkan ke Download"
-)
 
 }
 
@@ -2304,7 +2321,7 @@ data.message
 loginBtn.onclick =
 async ()=>{
 
-alert("LOGIN DIKLIK")
+//alert("LOGIN DIKLIK")
 
 const username =
 document.getElementById(
@@ -2316,13 +2333,13 @@ document.getElementById(
 "password"
 ).value
 
-alert("2")
+//alert("2")
 
-alert("API = " + API)
+//alert("API = " + API)
 
-fetch("https://musicdy.208.biz.id")
+/*fetch("https://musicdy.208.biz.id")
 .then(() => alert("DOMAIN OK"))
-.catch(err => alert("DOMAIN ERROR:\n" + err))
+.catch(err => alert("DOMAIN ERROR:\n" + err))*/
 
 let data
 
@@ -2509,12 +2526,14 @@ async function downloadSongFile(url){
 
     try{
 
+        alert("Sedang mengunduh...")
+
         const response =
         await fetch(url)
-
+alert("A")
         const blob =
         await response.blob()
-
+alert("B")
         const reader =
         new FileReader()
 
@@ -2522,40 +2541,94 @@ async function downloadSongFile(url){
 
         reader.onloadend =
         async ()=>{
-
+alert("C")
             const base64 =
             reader.result.split(",")[1]
 
             const filename =
             url.split("/").pop()
 
-            await Filesystem.writeFile({
+try{
 
-                path:
-                filename,
+alert(
+    "BASE64 LENGTH = " +
+    base64.length
+)
 
-                data:
-                base64,
-
-                directory:
-                "DATA"
-
-            })
-
-            alert(
-    "Download selesai:\n" +
+alert(
+    "FILE = " +
     filename
 )
 
-cekFileDownload()
+    await Filesystem.writeFile({
+
+        path:
+        filename,
+
+        data:
+        base64,
+
+        directory:
+        "DATA"
+
+    })
+
+    alert("D")
+
+}catch(err){
+
+    alert(
+        "WRITE ERROR MESSAGE:\n" +
+        err?.message
+    )
+
+    alert(
+        "WRITE ERROR STRING:\n" +
+        String(err)
+    )
+
+    console.log(err)
+
+    return
+
+}
+
+            if(
+            !downloads.includes(url)
+            ){
+
+                downloads.push(url)
+
+                localStorage.setItem(
+                "downloads",
+                JSON.stringify(
+                downloads
+                )
+                )
+
+                if(
+                currentPage ===
+                "downloadSongs"
+                ){
+
+                    showDownloadedSongs()
+
+                }
+
+            }
+
+            alert(
+            "Download selesai:\n" +
+            filename
+            )
 
         }
 
     }catch(err){
 
         alert(
-            "Download gagal:\n" +
-            err
+        "Download gagal:\n" +
+        err
         )
 
     }
