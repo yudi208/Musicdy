@@ -2328,37 +2328,40 @@ let data
 
 try{
 
-alert("TES SONGS")
-
 const res =
 await fetch(
-`${API}/api/songs`
+`${API}/api/login`,
+{
+method:"POST",
+headers:{
+"Content-Type":
+"application/json"
+},
+body:JSON.stringify({
+username,
+password
+})
+}
 )
 
-alert(
-"STATUS: " +
-res.status
-)
+data =
+await res.json()
 
 }catch(err){
 
 alert(
-"ERROR:\n" +
+"FETCH ERROR:\n" +
 err
 )
-
-console.log(err)
 
 return
 
 }
 
-/*if(data.success){
+if(data.success){
 
 localStorage.setItem(
-
 "user",
-
 JSON.stringify(
 data.user
 )
@@ -2377,8 +2380,7 @@ authScreen.style.display =
 authMsg.innerText =
 data.message
 
-}*/
-alert("SELESAI TES")
+}
 
 }
 
