@@ -600,31 +600,47 @@ alert(
 
 }else{
 
-downloadPlaylists.push(id)
+let nomor = 0
 
-playlist.songs.forEach(
-url=>{
-
-if(
-!downloads.includes(url)
+for(
+const url
+of playlist.songs
 ){
 
-downloads.push(url)
+    nomor++
+
+    document.title =
+    "Playlist " +
+    nomor +
+    "/" +
+    playlist.songs.length
+
+    ...
+}
+
+for(
+const url
+of playlist.songs
+){
+
+    if(
+    !downloads.includes(url)
+    ){
+
+        await downloadSongFile(
+            url
+        )
+
+    }
 
 }
 
-}
-)
+downloadPlaylists.push(id)
 
-localStorage.setItem(
-"downloads",
-JSON.stringify(
-downloads
-)
-)
+await saveDownloadPlaylists()
 
 alert(
-"Playlist ditambahkan ke Download"
+"Playlist selesai diunduh"
 )
 
 }
@@ -1195,8 +1211,6 @@ downloads
 
 )
 
-//renderSongs(allSongs)
-
 }
 
 function showSongMenu(url){
@@ -1653,12 +1667,14 @@ if ("mediaSession" in navigator) {
 
     navigator.mediaSession.metadata =
         new MediaMetadata({
+alert(
+    "MEDIA SESSION:\n" +
+    song.title
+)
             title: song.title,
             artist: song.artist || "Unknown Artist",
-            artwork: [{
-                src: song.cover || "/icon/logo.png",
-                sizes: "512x512",
-                type: "image/png"
+            artwork: []
+
             }]
         });
 
@@ -2547,16 +2563,6 @@ try{
 
 }catch(err){
 
-    alert(
-        "WRITE ERROR MESSAGE:\n" +
-        err?.message
-    )
-
-    alert(
-        "WRITE ERROR STRING:\n" +
-        String(err)
-    )
-
     console.log(err)
 
     return
@@ -2609,6 +2615,8 @@ showDownloadedSongs()
             filename
             )
 
+return true
+
         }
 
     }catch(err){
@@ -2617,6 +2625,8 @@ showDownloadedSongs()
         "Download gagal:\n" +
         err
         )
+
+return false
 
     }
 
