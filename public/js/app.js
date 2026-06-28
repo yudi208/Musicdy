@@ -424,14 +424,27 @@ try{
         )
     )
 
+alert(
+"TERSIMPAN = " +
+allPlaylists.length
+)
+
 }catch(err){
 
-    allPlaylists =
+    const cache =
     JSON.parse(
         localStorage.getItem(
             "allPlaylists"
         )
     ) || []
+
+    alert(
+        "CACHE = " +
+        cache.length
+    )
+
+    allPlaylists =
+    cache
 
 }
 
