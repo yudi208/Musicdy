@@ -132,6 +132,32 @@ let selectedPlaylistId = null
 let selectedSongUrl = null
 let selectedSong = null
 let audio = new Audio()
+const MediaSession =
+window.Capacitor?.Plugins?.MediaSession
+
+if(MediaSession){
+
+    MediaSession.setActionHandler({
+
+        action:"nexttrack"
+
+    },()=>{
+
+        next.click()
+
+    })
+
+    MediaSession.setActionHandler({
+
+        action:"previoustrack"
+
+    },()=>{
+
+        prev.click()
+
+    })
+
+}
 let playing = false
 let playMode = "repeat-all"
 let allSongs = []
@@ -1714,13 +1740,6 @@ currentSongUrl = source
 
 audio.play().catch(err => {
 
-if(
-window.Capacitor?.Plugins?.MediaSession
-){
-
-alert("MediaSession APK ADA")
-
-}
     alert(
         "PLAY ERROR:\n" +
         err
@@ -1729,6 +1748,30 @@ alert("MediaSession APK ADA")
     console.log(err)
 
 })
+
+const MediaSession =
+window.Capacitor?.Plugins?.MediaSession
+
+if(MediaSession){
+
+    await MediaSession.setMetadata({
+        title: song.title,
+        artist: song.artist || "Unknown",
+        album: "Musicdy",
+        artwork: [
+            {
+                src:
+                song.cover ||
+                "/default.png"
+            }
+        ]
+    })
+
+    await MediaSession.setPlaybackState({
+        state:"playing"
+    })
+
+}
 
 if ("mediaSession" in navigator) {
 
@@ -1904,6 +1947,16 @@ play.onclick = () => {
 
         audio.pause()
 
+const MediaSession =
+window.Capacitor?.Plugins?.MediaSession
+
+if(MediaSession){
+
+    MediaSession.setPlaybackState({
+        state:"paused"
+    })
+
+}
         playing = false
 
         play.innerHTML = "▶"
@@ -1916,6 +1969,16 @@ document.getElementById("playerCover")
 
         audio.play()
 
+const MediaSession =
+window.Capacitor?.Plugins?.MediaSession
+
+if(MediaSession){
+
+    MediaSession.setPlaybackState({
+        state:"paused"
+    })
+
+}
         playing = true
 
         play.innerHTML = "❚❚"
@@ -1934,6 +1997,28 @@ audio.addEventListener(
 
 audio.addEventListener("timeupdate", () => {
 
+const MediaSession =
+window.Capacitor?.Plugins?.MediaSession
+
+if(
+MediaSession &&
+audio.duration
+){
+
+    MediaSession.setPositionState({
+
+        duration:
+        audio.duration,
+
+        playbackRate:
+        1,
+
+        position:
+        audio.currentTime
+
+    })
+
+}
     if (!isNaN(audio.duration)) {
 
         fullProgress.max =
