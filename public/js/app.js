@@ -22,7 +22,7 @@ console.log(
 
 setTimeout(()=>{
 
-alert(
+/*alert(
 JSON.stringify(
 window.Capacitor.PluginHeaders
 .filter(
@@ -33,7 +33,7 @@ null,
 )
 )
 
-},3000)
+},3000)*/
 
 setTimeout(() => {
     console.log("Plugins =", window.Capacitor?.Plugins)
@@ -132,32 +132,6 @@ let selectedPlaylistId = null
 let selectedSongUrl = null
 let selectedSong = null
 let audio = new Audio()
-const MediaSession =
-window.Capacitor?.Plugins?.MediaSession
-
-if(MediaSession){
-
-    MediaSession.setActionHandler({
-
-        action:"nexttrack"
-
-    },()=>{
-
-        next.click()
-
-    })
-
-    MediaSession.setActionHandler({
-
-        action:"previoustrack"
-
-    },()=>{
-
-        prev.click()
-
-    })
-
-}
 let playing = false
 let playMode = "repeat-all"
 let allSongs = []
@@ -1749,30 +1723,6 @@ audio.play().catch(err => {
 
 })
 
-const MediaSession =
-window.Capacitor?.Plugins?.MediaSession
-
-if(MediaSession){
-
-    await MediaSession.setMetadata({
-        title: song.title,
-        artist: song.artist || "Unknown",
-        album: "Musicdy",
-        artwork: [
-            {
-                src:
-                song.cover ||
-                "/default.png"
-            }
-        ]
-    })
-
-    await MediaSession.setPlaybackState({
-        state:"playing"
-    })
-
-}
-
 if ("mediaSession" in navigator) {
 
     navigator.mediaSession.metadata =
@@ -1824,6 +1774,52 @@ if(
 window.Capacitor?.Plugins?.MediaSession
 ){
 
+    const ms =
+    window.Capacitor.Plugins.MediaSession
+
+    ms.setActionHandler({
+
+        action:"nexttrack"
+
+    },()=>{
+
+        playSongByIndex(
+
+            currentIndex >=
+            currentList.length - 1
+
+            ? 0
+
+            : currentIndex + 1
+
+        )
+
+    })
+
+    ms.setActionHandler({
+
+        action:"previoustrack"
+
+    },()=>{
+
+        playSongByIndex(
+
+            currentIndex <= 0
+
+            ? currentList.length - 1
+
+            : currentIndex - 1
+
+        )
+
+    })
+
+}
+
+if(
+window.Capacitor?.Plugins?.MediaSession
+){
+
 await window.Capacitor
 .Plugins
 .MediaSession
@@ -1838,8 +1834,12 @@ song.artist || "Unknown Artist",
 album:
 "Musicdy",
 
-artworkUrl:
-song.cover || ""
+artwork:[
+{
+src:
+song.cover || "/default.png"
+}
+]
 
 })
 
@@ -1975,7 +1975,7 @@ window.Capacitor?.Plugins?.MediaSession
 if(MediaSession){
 
     MediaSession.setPlaybackState({
-        state:"paused"
+        state:"playing"
     })
 
 }
@@ -1994,8 +1994,6 @@ document.getElementById("playerCover")
 audio.addEventListener(
 "timeupdate",
 ()=>{
-
-audio.addEventListener("timeupdate", () => {
 
 const MediaSession =
 window.Capacitor?.Plugins?.MediaSession
