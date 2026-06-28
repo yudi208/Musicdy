@@ -24,10 +24,10 @@ setTimeout(()=>{
 
 alert(
 JSON.stringify(
-window.Capacitor,
+window.Capacitor.Plugins.MediaSession,
 null,
 2
-).slice(0,1000)
+)
 )
 
 },3000)
