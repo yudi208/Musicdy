@@ -20,9 +20,9 @@ console.log(
     Filesystem
 )
 
-setTimeout(()=>{
+/*setTimeout(()=>{
 
-/*alert(
+alert(
 JSON.stringify(
 window.Capacitor.PluginHeaders
 .filter(
@@ -2017,46 +2017,32 @@ audio.duration
     })
 
 }
-    if (!isNaN(audio.duration)) {
 
-        fullProgress.max =
-        audio.duration
+if(
+!isNaN(audio.duration)
+){
 
-        fullProgress.value =
-        audio.currentTime
+    fullProgress.max =
+    audio.duration
 
-        currentTimeText.textContent =
-        formatTime(audio.currentTime)
+    fullProgress.value =
+    audio.currentTime
 
-        durationText.textContent =
-        formatTime(audio.duration)
+    currentTimeText.textContent =
+    formatTime(audio.currentTime)
 
-    }
+    durationText.textContent =
+    formatTime(audio.duration)
+
+    progress.max =
+    audio.duration
+
+    progress.value =
+    audio.currentTime
+
+}
 
 })
-
-if(audio.duration){
-
-progress.max =
-audio.duration
-
-progress.value =
-audio.currentTime
-
-/*const percent =
-audio.currentTime /
-audio.duration
-
-const offset = circumference - (percent * circumference)
-
-ringProgress.style.strokeDashoffset =
-circumference -
-(percent * circumference)*/
-
-}
-
-}
-)
 
 progress.addEventListener(
 "input",
