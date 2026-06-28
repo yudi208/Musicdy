@@ -24,7 +24,10 @@ setTimeout(()=>{
 
 alert(
 JSON.stringify(
-window.Capacitor.Plugins.MediaSession,
+window.Capacitor.PluginHeaders
+.filter(
+p => p.name === "MediaSession"
+),
 null,
 2
 )
