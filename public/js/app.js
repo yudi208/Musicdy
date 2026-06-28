@@ -1689,8 +1689,6 @@ if(offlineFile){
 
 }
 
-audio.pause()
-
 audio.src = source
 currentSongUrl = source
 
@@ -1797,8 +1795,6 @@ window.Capacitor?.Plugins?.MediaSession
 
     })
 
-}
-
 ms.setActionHandler({
     action:"play"
 },()=>{
@@ -1842,6 +1838,8 @@ ms.setActionHandler({
     }
 
 })
+
+}
 
 if(
 window.Capacitor?.Plugins?.MediaSession
