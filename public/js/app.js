@@ -424,11 +424,6 @@ try{
         )
     )
 
-alert(
-"TERSIMPAN = " +
-allPlaylists.length
-)
-
 }catch(err){
 
     const cache =
@@ -437,11 +432,6 @@ allPlaylists.length
             "allPlaylists"
         )
     ) || []
-
-    alert(
-        "CACHE = " +
-        cache.length
-    )
 
     allPlaylists =
     cache
@@ -981,8 +971,14 @@ p => p.id == id
 
 if(!playlist)return
 
+const sourceSongs =
+
+allSongs.length > 0
+? allSongs
+: downloadedSongs
+
 const songs =
-allSongs.filter(
+sourceSongs.filter(
 song => {
 
 const songName =
@@ -998,7 +994,10 @@ decodeURIComponent(
 url.split("/").pop()
 )
 
-return playlistName === songName
+return (
+playlistName ===
+songName
+)
 
 })
 
