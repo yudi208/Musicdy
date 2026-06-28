@@ -1,92 +1,22 @@
 {
   "users": [
     {
-      "id": 1781885703382,
-      "username": "Musicdy",
-      "password": "$2b$10$qu9yrL6tbIoLU8yeoBNnXOapPASrytiFp6OjB3AiAWrErY1YrEFkS",
-      "favorites": [
-        "https://musicdy.208.biz.id/songs/Jakarta_Hari_Ini_spotdown.org.mp3"
-      ],
-      "favoritPlaylists": [],
-      "downloadPlaylists": [],
-      "playlists": [
-        {
-          "id": 1781886880163,
-          "name": "test",
-          "songs": [
-            "https://musicdy.208.biz.id/songs/Jakarta_Hari_Ini_spotdown.org.mp3"
-          ]
-        }
-      ],
-      "favoritePlaylists": [
-        1781886880163
-      ]
-    },
-    {
-      "id": 1781885804458,
-      "username": "CANTIYA",
-      "password": "$2b$10$1E2oapoKAlUztmAZW9FNL.eXpa5fDiWO5X8UkceD7e9aZGlU1yQuu",
-      "favorites": [],
-      "favoritPlaylists": [],
-      "downloadPlaylists": [],
-      "playlists": []
-    },
-    {
-      "id": 1781885917523,
-      "username": "cacaw",
-      "password": "$2b$10$bueePsqa//HYlILAGiv.l.s51hy0LmxDI0W9opKFnLi1oH1BlzZEG",
-      "favorites": [
-        "https://musicdy.208.biz.id/songs/Cup_of_Joe_-_Multo.mp3"
-      ],
-      "favoritPlaylists": [],
-      "downloadPlaylists": [],
-      "playlists": []
-    },
-    {
-      "id": 1781887144971,
-      "username": "C",
-      "password": "$2b$10$ijFEuCbCp4oeE269CRbSGeD0pIExlh5QIbIz5yM1Bf2ZbVDHOxQ5.",
-      "favorites": [
-        "https://musicdy.208.biz.id/songs/1781433399241-Nina.mp3"
-      ],
-      "favoritPlaylists": [],
-      "downloadPlaylists": [],
-      "playlists": [],
-      "favoritePlaylists": [
-        1781886880163
-      ]
-    },
-    {
-      "id": 1782092240314,
+      "id": 1782551094947,
       "username": "Q",
-      "password": "$2b$10$Eo6HoxeDONrTbpDlDSCBr.VwajCKIoWgqMLbfbx1myTFUanqT.zwa",
-      "favorites": [
-        "https://musicdy.208.biz.id/songs/o%2C_Tuan.mp3"
-      ],
+      "password": "$2b$10$ZN8xZ0o5392z.ukpgrGveONHehIRyIVuErZJYPoT7ZOWSr1rzBAPS",
+      "favorites": [],
       "favoritPlaylists": [],
       "downloadPlaylists": [],
       "playlists": [
         {
-          "id": 1782547569611,
-          "name": "tes",
+          "id": 1782607539430,
+          "name": "q",
           "songs": [
-            "https://musicdy.208.biz.id/songs/Akon%20-%20Lonely.mp3",
-            "https://musicdy.208.biz.id/songs/kids.mp3"
+            "https://musicdy.208.biz.id/songs/1781440369215-Bersenja_Gurau.mp3",
+            "https://musicdy.208.biz.id/songs/Sadrah.mp3"
           ]
         }
-      ],
-      "favoritePlaylists": [
-        1781886880163
       ]
-    },
-    {
-      "id": 1782266813895,
-      "username": "Ape",
-      "password": "$2b$10$pT4yWewZqcehF7RA6IZFWOEuGFjLyD/qn81cqN9Nh/VvX.jdZYcMe",
-      "favorites": [],
-      "favoritPlaylists": [],
-      "downloadPlaylists": [],
-      "playlists": []
     }
   ]
 }

@@ -905,17 +905,32 @@ class="playlist-back"
 onclick="menuDownload.click()"
 >
 
-⬅ Kembali
+Back
 
 </div>
 
 `
+alert(
+"downloadPlaylists =\n" +
+JSON.stringify(
+downloadPlaylists,
+null,
+2
+)
+)
+
+alert(
+"allPlaylists = " +
+allPlaylists.length
+)
 
 const downloadLists =
 allPlaylists.filter(
 playlist =>
-downloadPlaylists.includes(
-playlist.id
+downloadPlaylists.some(
+id =>
+String(id) ===
+String(playlist.id)
 )
 )
 
@@ -2309,8 +2324,6 @@ document.getElementById(
 registerBtn.onclick =
 async ()=>{
 
-alert("REGISTER DIKLIK")
-
 const username =
 document.getElementById(
 "username"
@@ -2349,8 +2362,6 @@ data.message
 
 loginBtn.onclick =
 async ()=>{
-
-//alert("LOGIN DIKLIK")
 
 const username =
 document.getElementById(
