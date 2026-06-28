@@ -726,8 +726,8 @@ downloadPlaylists.filter(
 p => p != id
 )
 
-await savePlaylists()
 await loadAllPlaylists()
+await savePlaylists()
 await saveFavoritePlaylists()
 await saveDownloadPlaylists()
 
@@ -1412,9 +1412,8 @@ await res.json()
 
 if(data.success){
 
-await loadPlaylists()
-
 await loadAllPlaylists()
+await loadPlaylists()
 
 alert(
 "Berhasil ditambahkan"
@@ -2078,8 +2077,8 @@ songs:[]
 
 })
 
-await savePlaylists()
 await loadAllPlaylists()
+await savePlaylists()
 
 alert(
 "Playlist dibuat"
@@ -2300,6 +2299,8 @@ xhr.send(form)
 
 (async()=>{
 
+await loadAllPlaylists()
+
 await loadFavorites()
 
 await loadFavoritePlaylists()
@@ -2307,8 +2308,6 @@ await loadFavoritePlaylists()
 await loadDownloadPlaylists()
 
 await loadPlaylists()
-
-await loadAllPlaylists()
 
 loadSongs()
 
@@ -2436,10 +2435,9 @@ JSON.stringify(
 data.user
 )
 )
-
+await loadAllPlaylists()
 await loadFavorites()
 await loadPlaylists()
-await loadAllPlaylists()
 await loadFavoritePlaylists()
 
 authScreen.style.display =
