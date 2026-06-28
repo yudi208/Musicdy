@@ -20,21 +20,6 @@ console.log(
     Filesystem
 )
 
-/*setTimeout(()=>{
-
-alert(
-JSON.stringify(
-window.Capacitor.PluginHeaders
-.filter(
-p => p.name === "MediaSession"
-),
-null,
-2
-)
-)
-
-},3000)*/
-
 setTimeout(() => {
     console.log("Plugins =", window.Capacitor?.Plugins)
 }, 2000)
@@ -1704,22 +1689,20 @@ if(offlineFile){
 
 }
 
+audio.pause()
+
 audio.src = source
 currentSongUrl = source
 
-/*alert(
-    "SOURCE:\n" +
-    source
-)*/
-
 audio.play().catch(err => {
 
-    alert(
-        "PLAY ERROR:\n" +
-        err
-    )
+    if(
+        err.name === "AbortError"
+    ){
+        return
+    }
 
-    console.log(err)
+    console.error(err)
 
 })
 
@@ -1815,6 +1798,50 @@ window.Capacitor?.Plugins?.MediaSession
     })
 
 }
+
+ms.setActionHandler({
+    action:"play"
+},()=>{
+
+    audio.play()
+
+    playing = true
+
+    ms.setPlaybackState({
+        playbackState:"playing"
+    })
+
+})
+
+ms.setActionHandler({
+    action:"pause"
+},()=>{
+
+    audio.pause()
+
+    playing = false
+
+    ms.setPlaybackState({
+        playbackState:"paused"
+    })
+
+})
+
+ms.setActionHandler({
+    action:"seekto"
+},(data)=>{
+
+    if(
+        typeof data.seekTime ===
+        "number"
+    ){
+
+        audio.currentTime =
+        data.seekTime
+
+    }
+
+})
 
 if(
 window.Capacitor?.Plugins?.MediaSession
@@ -1953,7 +1980,7 @@ window.Capacitor?.Plugins?.MediaSession
 if(MediaSession){
 
     MediaSession.setPlaybackState({
-        state:"paused"
+        playbackState:"paused"
     })
 
 }
@@ -1975,7 +2002,7 @@ window.Capacitor?.Plugins?.MediaSession
 if(MediaSession){
 
     MediaSession.setPlaybackState({
-        state:"playing"
+        playbackState:"playing"
     })
 
 }
