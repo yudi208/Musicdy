@@ -1714,6 +1714,13 @@ currentSongUrl = source
 
 audio.play().catch(err => {
 
+if(
+window.Capacitor?.Plugins?.MediaSession
+){
+
+alert("MediaSession APK ADA")
+
+}
     alert(
         "PLAY ERROR:\n" +
         err
@@ -1768,6 +1775,41 @@ if ("mediaSession" in navigator) {
             );
         }
     );
+}
+
+if(
+window.Capacitor?.Plugins?.MediaSession
+){
+
+await window.Capacitor
+.Plugins
+.MediaSession
+.setMetadata({
+
+title:
+song.title,
+
+artist:
+song.artist || "Unknown Artist",
+
+album:
+"Musicdy",
+
+artworkUrl:
+song.cover || ""
+
+})
+
+await window.Capacitor
+.Plugins
+.MediaSession
+.setPlaybackState({
+
+playbackState:
+"playing"
+
+})
+
 }
 
 playing = true
