@@ -20,6 +20,18 @@ console.log(
     Filesystem
 )
 
+setTimeout(()=>{
+
+alert(
+JSON.stringify(
+window.Capacitor,
+null,
+2
+).slice(0,1000)
+)
+
+},3000)
+
 setTimeout(() => {
     console.log("Plugins =", window.Capacitor?.Plugins)
 }, 2000)
@@ -862,7 +874,7 @@ class="playlist-back"
 onclick="menuFavorite.click()"
 >
 
-⬅ Kembali
+Back
 
 </div>
 
@@ -913,19 +925,6 @@ Back
 </div>
 
 `
-alert(
-"downloadPlaylists =\n" +
-JSON.stringify(
-downloadPlaylists,
-null,
-2
-)
-)
-
-alert(
-"allPlaylists = " +
-allPlaylists.length
-)
 
 const downloadLists =
 allPlaylists.filter(
