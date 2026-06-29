@@ -410,6 +410,18 @@ margin-bottom:20px;
 
 }
 
+.search input{
+    outline:none;
+    border:none;
+    -webkit-tap-highlight-color:transparent;
+}
+
+.search input:focus{
+    outline:none;
+    border:none;
+    box-shadow:none;
+}
+
 .music-card{
 
 display:flex;
